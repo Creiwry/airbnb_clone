@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  number_of_beds: 1
+  price_per_night: 1.5
+  description: MyText
+  has_wifi: false
+  welcome_message: MyText
+
+two:
+  number_of_beds: 1
+  price_per_night: 1.5
+  description: MyText
+  has_wifi: false
+  welcome_message: MyText
