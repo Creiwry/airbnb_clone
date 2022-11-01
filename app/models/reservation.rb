@@ -3,7 +3,7 @@ class IsNotBooked < ActiveModel::Validator
     reservations = Reservation.all
     reservations.each do |res|
       if (res.start_date..res.end_date).overlaps?(record.start_date..record.end_date) 
-        record.error.add :base, "The reservations overlap"
+        record.errors.add :base, "The reservations overlap"
       end
     end
   end

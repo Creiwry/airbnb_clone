@@ -39,23 +39,26 @@ listings = Listing.all
 
 #For each listing
 ##Create 5 reservations in the past
-# reservation_count = 0
+reservation_count = 0
 
-# while reservation_count < 5 do 
-#   create_reservation = Reservation.create(start_date: Faker::Date.backward(days: 365), end_date: Faker::Date.backward(days: 365) , listing: listings.sample, guest: users.sample)
-#   reservation_count += 1
-# end
+while reservation_count < 5 do 
+  create_reservation = Reservation.create(start_date: Faker::Date.backward(days: 365), end_date: Faker::Date.backward(days: 365) , listing: listings.sample, guest: users.sample)
+  reservations = Reservation.all
+  if reservations.include?(create_reservation)
+    reservation_count += 1
+  end
+end
 
-# ##Create 5 reservations in the future
-# reservation_count = 0
+##Create 5 reservations in the future
+reservation_count = 0
 
-# while reservation_count < 5 do 
-#   listing = listings.sample
-#   puts listing
-#   create_reservation = Reservation.create(start_date: Faker::Date.forward(days: 365), end_date: Faker::Date.forward(days: 365) , listing: listing, guest: users.sample)
-#   if create_reservation.guest != listing.user
-#     reservation_count += 1
-#   end
-# end
+while reservation_count < 5 do 
+  listing = listings.sample
+  create_reservation = Reservation.create(start_date: Faker::Date.forward(days: 365), end_date: Faker::Date.forward(days: 365) , listing: listing, guest: users.sample)
+  reservations = Reservation.all
+  if create_reservation.guest != listing.user && reservations.include?(create_reservation)
+    reservation_count += 1
+  end
+end
 
-# reservations = Reservation.all
+reservations = Reservation.all
