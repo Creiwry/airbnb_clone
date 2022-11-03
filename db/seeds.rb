@@ -12,9 +12,10 @@ require 'faker'
 Faker::Config.locale = 'fr'
 
 City.destroy_all
+User.destroy_all
 Listing.destroy_all
 Reservation.destroy_all
-User.destroy_all
+
 
 # Create 10 cities
 10.times do
@@ -51,6 +52,7 @@ end
 reservation_count = 0
 
 while reservation_count < 5
+
   create_reservation =
     Reservation.create(
       start_date: Faker::Date.backward(days: 365),
@@ -58,20 +60,19 @@ while reservation_count < 5
       listing: Listing.all.sample,
       guest: User.all.sample
     )
-  reservation_count += 1 if create_reservation.guest != listing.user && Reservation.all.include?(create_reservation)
+  reservation_count += 1 if Reservation.all.include?(create_reservation)
 end
 
 ## Create 5 reservations in the future
 reservation_count = 0
 
 while reservation_count < 5
-  listing = Listing.all.sample
   create_reservation =
     Reservation.create(
       start_date: Faker::Date.forward(days: 365),
       end_date: Faker::Date.forward(days: 365),
-      listing:,
+      listing: Listing.all.sample,
       guest: User.all.sample
     )
-  reservation_count += 1 if create_reservation.guest != listing.user && Reservation.all.include?(create_reservation)
+  reservation_count += 1 if Reservation.all.include?(create_reservation)
 end
