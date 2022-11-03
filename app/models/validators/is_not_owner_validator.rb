@@ -5,8 +5,7 @@ class IsNotOwner < ActiveModel::Validator
   def validate(record)
     # puts record.guest.nil?
     Listing.where(id: record.listing_id) do |listing|
-
-      return unless record.guest_id == listing.user_id
+      next unless record.guest_id == listing.user_id
 
       record.errors.add :base, 'The owner cannot be the guest'
     end
