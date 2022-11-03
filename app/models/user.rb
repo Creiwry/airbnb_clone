@@ -13,14 +13,11 @@ class User < ApplicationRecord
 
   validates :phone_number,
             presence: true
-            # format:
-            # {
-            #   with: /\A(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})\z/,
-            #   message: 'please enter a valid phone number'
-            # }
-  has_many :listings, foreign_key: "user_id", dependent: :destroy
-  has_many :reservations, dependent: :destroy
-  has_many :listings, through: :reservations,
-                      foreign_key: 'guest_id',
-                      class_name: 'User'
+  # format:
+  # {
+  #   with: /\A(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})\z/,
+  #   message: 'please enter a valid phone number'
+  # }
+  has_many :listings, dependent: :destroy
+  has_many :reservations, through: :listings, dependent: :destroy
 end
