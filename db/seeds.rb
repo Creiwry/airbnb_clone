@@ -16,7 +16,6 @@ User.destroy_all
 Listing.destroy_all
 Reservation.destroy_all
 
-
 # Create 10 cities
 10.times do
   City.create(
@@ -52,7 +51,6 @@ end
 reservation_count = 0
 
 while reservation_count < 5
-
   create_reservation =
     Reservation.create(
       start_date: Faker::Date.backward(days: 365),
