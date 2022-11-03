@@ -22,4 +22,37 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_02_185202) do
     t.index ["zip_code"], name: "index_cities_on_zip_code", unique: true
   end
 
+  create_table "listings", force: :cascade do |t|
+    t.integer "available_beds"
+    t.integer "price"
+    t.text "description"
+    t.boolean "has_wifi"
+    t.text "welcome_message"
+    t.bigint "user_id"
+    t.bigint "city_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_listings_on_city_id"
+    t.index ["user_id"], name: "index_listings_on_user_id"
+  end
+
+  create_table "reservations", force: :cascade do |t|
+    t.bigint "guest_id"
+    t.bigint "listing_id"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["guest_id"], name: "index_reservations_on_guest_id"
+    t.index ["listing_id"], name: "index_reservations_on_listing_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email"
+    t.integer "phone_number"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
 end
