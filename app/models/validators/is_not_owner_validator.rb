@@ -3,8 +3,12 @@
 # IsNotOwner custom validator
 class IsNotOwner < ActiveModel::Validator
   def validate(record)
-    return unless record.user == record.guest
+    # puts record.guest.nil?
+    Listing.where(id: record.listing_id) do |listing|
 
-    record.errors.add :base, 'The owner cannot be the guest'
+      return unless record.guest_id == listing.user_id
+
+      record.errors.add :base, 'The owner cannot be the guest'
+    end
   end
 end
